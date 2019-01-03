@@ -21,7 +21,6 @@
 
 @property(nonatomic, strong) XLineChartConfiguration* configuration;
 
-
 /**
  Line Graph Mode
  - MutiLine

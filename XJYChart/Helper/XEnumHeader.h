@@ -21,4 +21,9 @@ typedef NS_ENUM(NSUInteger, XLineGraphMode) {
   StackAreaLineGraph,
 };
 
+typedef NS_ENUM(NSInteger, XLineChartOrdinateMode) {
+    XLineChartOrdinateModeSingle,
+    XLineChartOrdinateModeDouble
+};
+
 #endif /* XEnumHeader_h */

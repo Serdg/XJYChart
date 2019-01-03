@@ -25,8 +25,9 @@
 @property(nonatomic, strong) NSMutableArray<XLineChartItem*>* dataItemArray;
 @property(nonatomic, strong) NSMutableArray<NSString*>* dataDescribeArray;
 
-@property(nonatomic, strong) OrdinateView* ordinateView;
+@property(nonatomic, strong) OrdinateView* leftOrdinateView;
 @property(nonatomic, strong) XLineChartView* lineChartView;
+@property (nonatomic, strong) OrdinateView *rightOrdinateView;
 
 @end
 
@@ -48,7 +49,12 @@
     self.layer.masksToBounds = YES;
     [self addGesForView:self.lineChartView];
     self.lineChartView.layer.masksToBounds = YES;
-    [self addSubview:self.ordinateView];
+    [self addSubview:self.leftOrdinateView];
+      
+    if (self.configuration.ordinateMode == XLineChartOrdinateModeDouble) {
+        [self addSubview:self.rightOrdinateView];
+    }
+      
     [self addSubview:self.lineChartView];
   }
   return self;
@@ -72,7 +78,7 @@
     self.layer.masksToBounds = YES;
     [self addGesForView:self.lineChartView];
     self.lineChartView.layer.masksToBounds = YES;
-    [self addSubview:self.ordinateView];
+    [self addSubview:self.leftOrdinateView];
     [self addSubview:self.lineChartView];
   }
   return self;
@@ -125,15 +131,26 @@
 
 #pragma mark Get
 
-- (OrdinateView*)ordinateView {
-  if (!_ordinateView) {
-    _ordinateView = [[OrdinateView alloc]
+- (OrdinateView*)leftOrdinateView {
+  if (!_leftOrdinateView) {
+    _leftOrdinateView = [[OrdinateView alloc]
         initWithFrame:CGRectMake(0, 0, OrdinateWidth, self.frame.size.height)
             topNumber:self.top
          bottomNumber:self.bottom
                      configuration:self.configuration];
   }
-  return _ordinateView;
+  return _leftOrdinateView;
+}
+
+- (OrdinateView *)rightOrdinateView {
+    if (!_rightOrdinateView) {
+        _rightOrdinateView = [[OrdinateView alloc]
+            initWithFrame:CGRectMake(0, 0, OrdinateWidth, self.frame.size.height)
+                topNumber:self.top
+             bottomNumber:self.bottom
+            configuration:self.configuration];
+    }
+    return _rightOrdinateView;
 }
 
 - (XLineChartView*)lineChartView {
