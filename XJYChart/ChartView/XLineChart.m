@@ -79,6 +79,11 @@
     [self addGesForView:self.lineChartView];
     self.lineChartView.layer.masksToBounds = YES;
     [self addSubview:self.leftOrdinateView];
+      
+    if (self.configuration.ordinateMode == XLineChartOrdinateModeDouble) {
+        [self addSubview:self.rightOrdinateView];
+    }
+      
     [self addSubview:self.lineChartView];
   }
   return self;
@@ -143,9 +148,10 @@
 }
 
 - (OrdinateView *)rightOrdinateView {
+    CGFloat xPos = self.frame.size.width - OrdinateWidth;
     if (!_rightOrdinateView) {
         _rightOrdinateView = [[OrdinateView alloc]
-            initWithFrame:CGRectMake(0, 0, OrdinateWidth, self.frame.size.height)
+            initWithFrame:CGRectMake(xPos, 0, OrdinateWidth, self.frame.size.height)
                 topNumber:self.top
              bottomNumber:self.bottom
             configuration:self.configuration];
@@ -154,11 +160,11 @@
 }
 
 - (XLineChartView*)lineChartView {
-  if (!_lineChartView) {
+    if (!_lineChartView) {
     _lineChartView = [[XLineChartView alloc]
             initWithFrame:CGRectMake(
                               OrdinateWidth, LineChartViewTopInterval,
-                              self.frame.size.width - OrdinateWidth,
+                                     self.frame.size.width - (OrdinateWidth + (self.configuration.ordinateMode == XLineChartOrdinateModeDouble ? OrdinateWidth : 0.f)),
                               self.frame.size.height - LineChartViewTopInterval)
             dataItemArray:self.dataItemArray
         dataDescribeArray:self.dataDescribeArray
