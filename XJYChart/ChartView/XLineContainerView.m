@@ -524,6 +524,7 @@ CGFloat touchLineWidth = 20;
         
         if ([self.delegate canHighlightPointWithValue:[valueForTest floatValue] forLineAtIndex:itemIndex]) {
             [results addObject:points[index]];
+            [self.delegate lineChart:self.chart didHighlightPointWithValue:[valueForTest floatValue] forLineAtIndex:itemIndex];
         } else {
             [results addObject:[NSValue valueWithCGPoint:CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN)]];
         }

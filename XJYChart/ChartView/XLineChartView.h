@@ -12,6 +12,8 @@
 #import "XNormalLineChartConfiguration.h"
 #import "XLineChartDelegate.h"
 
+@class XLineChart;
+
 @interface XLineChartView : UIScrollView
 /**
  初始化方法
@@ -50,6 +52,7 @@
 
 
 @property(nonatomic, strong) XLineChartConfiguration* configuration;
+@property (nonatomic, weak) XLineChart *chart;
 
 /**
  Line Graph Mode

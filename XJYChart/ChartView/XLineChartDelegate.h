@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+@class XLineChart;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol XLineChartDelegate <NSObject>
 - (BOOL)canHighlightPointWithValue:(CGFloat)value forLineAtIndex:(NSInteger) index;
+- (void)lineChart:(XLineChart *)chart didHighlightPointWithValue:(CGFloat)value forLineAtIndex:(NSInteger)index;
 @end
 
 NS_ASSUME_NONNULL_END

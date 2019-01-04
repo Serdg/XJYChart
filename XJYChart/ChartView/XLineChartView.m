@@ -152,6 +152,12 @@ NSString* KVOKeyLineGraphMode = @"lineMode";
     self.lineContainerView.delegate = delegate;
 }
 
+- (void)setChart:(XLineChart *)chart {
+    self.lineContainerView.chart = chart;
+}
+
+#pragma mark - Accessors
+
 - (id <XLineChartDelegate>)chartViewDelegate {
     return self.lineContainerView.delegate;
 }

@@ -87,8 +87,10 @@
 #pragma mark - XLineChartDelegate
 
 -(BOOL)canHighlightPointWithValue:(CGFloat)value forLineAtIndex:(NSInteger)index {
-    NSLog(@"HIGSV: %@ FOR LINE AT: %@", @(value), @(index));
     return YES;
+}
+
+- (void)lineChart:(XLineChart *)chart didHighlightPointWithValue:(CGFloat)value forLineAtIndex:(NSInteger)index {
 }
 
 @end

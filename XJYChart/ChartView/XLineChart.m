@@ -49,6 +49,7 @@
     self.layer.masksToBounds = YES;
     [self addGesForView:self.lineChartView];
     self.lineChartView.layer.masksToBounds = YES;
+      self.lineChartView.chart = self;
     [self addSubview:self.leftOrdinateView];
       
     if (self.configuration.ordinateMode == XLineChartOrdinateModeDouble) {
@@ -78,6 +79,7 @@
     self.layer.masksToBounds = YES;
     [self addGesForView:self.lineChartView];
     self.lineChartView.layer.masksToBounds = YES;
+      self.lineChartView.chart = self;
     [self addSubview:self.leftOrdinateView];
       
     if (self.configuration.ordinateMode == XLineChartOrdinateModeDouble) {

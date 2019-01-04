@@ -12,6 +12,8 @@
 #import "XNormalLineChartConfiguration.h"
 #import "XLineChartDelegate.h"
 
+@class XLineChart;
+
 @interface XLineContainerView : UIView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -38,5 +40,6 @@
 @property(nonatomic, strong) XNormalLineChartConfiguration* configuration;
 
 @property (nonatomic, weak) id <XLineChartDelegate> delegate;
+@property (nonatomic, weak) XLineChart *chart;
 
 @end
