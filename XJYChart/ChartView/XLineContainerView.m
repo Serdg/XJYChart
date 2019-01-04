@@ -169,14 +169,29 @@ CGFloat touchLineWidth = 20;
         return;
     }
     
+    CGPoint highlightablePoint = self.pointsForHightlight.firstObject.CGPointValue;
+    if (highlightablePoint.x == CGFLOAT_MIN) {
+        for (NSValue *pointValue in self.pointsForHightlight) {
+            CGPoint point = pointValue.CGPointValue;
+            if (point.x != CGFLOAT_MIN) {
+                highlightablePoint = point;
+                break;
+            }
+        }
+    }
+    
+    if (highlightablePoint.x == CGFLOAT_MIN) {
+        return;
+    }
+    
     UIColor *indicatorColor = self.configuration.indicatorLineColor ? self.configuration.indicatorLineColor : [UIColor redColor];
     
     CGContextSetStrokeColorWithColor(contextRef, indicatorColor.CGColor);
     CGContextSaveGState(contextRef);
     CGContextSetLineWidth(contextRef, 1.f);
     
-    CGContextMoveToPoint(contextRef, self.pointsForHightlight.firstObject.CGPointValue.x, 0.f);
-    CGContextAddLineToPoint(contextRef, self.pointsForHightlight.firstObject.CGPointValue.x, self.frame.size.height);
+    CGContextMoveToPoint(contextRef, highlightablePoint.x, 0.f);
+    CGContextAddLineToPoint(contextRef, highlightablePoint.x, self.frame.size.height);
     CGContextStrokePath(contextRef);
     
     for (NSValue *pointValue in self.pointsForHightlight) {
@@ -187,7 +202,7 @@ CGFloat touchLineWidth = 20;
         }
         
         UIColor *color = self.dataItemArray[[self.pointsForHightlight indexOfObject:pointValue]].color;
-        CAShapeLayer* pointLayer = [CAShapeLayer pointLayerWithDiameter:PointDiameter color:color center:point];        
+        CAShapeLayer* pointLayer = [CAShapeLayer pointLayerWithDiameter:PointDiameter color:color center:point];
         [self.pointLayerArray addObject:pointLayer];
         [self.layer addSublayer:pointLayer];
     }
