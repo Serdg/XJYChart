@@ -37,6 +37,7 @@ CGFloat touchLineWidth = 20;
 @property(nonatomic, strong) NSMutableArray<CAShapeLayer*>* shapeLayerArray;
 @property(nonatomic, strong) NSMutableArray<CAShapeLayer*>* pointLayerArray;
 @property(nonatomic, strong) XJYNumberLabelDecoration* numberLabelDecoration;
+@property (nonatomic, strong) NSArray <NSValue *> *pointsForHightlight;
 @end
 
 @implementation XLineContainerView
@@ -67,9 +68,9 @@ CGFloat touchLineWidth = 20;
 
 // Draw Template
 - (void)drawRect:(CGRect)rect {
-  [super drawRect:rect];
-  CGContextRef contextRef = UIGraphicsGetCurrentContext();
-  [self cleanPreDrawLayerAndData];
+    [super drawRect:rect];
+    CGContextRef contextRef = UIGraphicsGetCurrentContext();
+    [self cleanPreDrawLayerAndData];
     
     if (self.configuration.background == XLineChartBackgroundGrid) {
         [self strokeGridInContext:contextRef];
@@ -77,9 +78,10 @@ CGFloat touchLineWidth = 20;
         [self strokeAuxiliaryLineInContext:contextRef];
     }
     
-  [self strokeLineChart];
-  [self strokePointInContext];
-  [self strokeNumberLabels];
+    [self strokeLineChart];
+    [self strokePointInContext];
+    [self strokeNumberLabels];
+    [self strokeIndicatorLineWithContext:contextRef];
 }
 
 /// Stroke Auxiliary
@@ -160,6 +162,20 @@ CGFloat touchLineWidth = 20;
     CGContextRestoreGState(context);
     CGContextSaveGState(context);
     CGContextSetStrokeColorWithColor(context, self.configuration.auxiliaryDashLineColor.CGColor);
+}
+
+- (void)strokeIndicatorLineWithContext:(CGContextRef)contextRef {
+    if (!self.pointsForHightlight.count) {
+        return;
+    }
+    
+    CGContextSetStrokeColorWithColor(contextRef, [UIColor redColor].CGColor);
+    CGContextSaveGState(contextRef);
+    CGContextSetLineWidth(contextRef, 0.5);
+    
+    CGContextMoveToPoint(contextRef, self.pointsForHightlight.firstObject.CGPointValue.x, 0.f);
+    CGContextAddLineToPoint(contextRef, self.pointsForHightlight.firstObject.CGPointValue.x, self.frame.size.height);
+    CGContextStrokePath(contextRef);
 }
 
 - (void)cleanPreDrawLayerAndData {
@@ -434,86 +450,57 @@ CGFloat touchLineWidth = 20;
   }
 }
 
+#pragma mark - UIResponder
+
 - (void)touchesBegan:(NSSet<UITouch*>*)touches withEvent:(UIEvent*)event {
-  
-  if (self.configuration.isEnableTouchShowNumberLabel) {
-    static bool flag = true;
-    if (flag) {
-      //遍历每一条线时，只判断在 areaIdx 的 线段 是否包含 该点
-      [self.shapeLayerArray enumerateObjectsUsingBlock:^(
-                                                         CAShapeLayer* _Nonnull obj, NSUInteger idx,
-                                                         BOOL* _Nonnull stop) {
-        [self.numberLabelDecoration drawWithPoints:self.pointsArrays[idx] TextNumbers:self.dataItemArray[idx].numberArray isEnableAnimation:self.configuration.isEnableNumberAnimation];
-      }];
-    } else {
-      [self.numberLabelDecoration removeNumberLabels];
-    }
-    flag = !flag;
-    return ;
-  }
-  
-  if (self.configuration.isEnableNumberLabel) {
-    return;
-  }
-  //根据 点击的x坐标 只找在x 坐标区域内的 线段进行判断
-  //坐标系转换
-  CGPoint __block point = [[touches anyObject] locationInView:self];
-
-  //找到小的区域
-  int xIdx = 0;
-  [self findXIdx:&xIdx point:&point];
-
-  __block BOOL isContain = false;
-  for (int expandIdx = 0; expandIdx < ExpandMaxCount; expandIdx++) {
-    //遍历每一条线时，只判断在 areaIdx 的 线段 是否包含 该点
-    [self.shapeLayerArray enumerateObjectsUsingBlock:^(
-                              CAShapeLayer* _Nonnull obj, NSUInteger idx,
-                              BOOL* _Nonnull stop) {
-
-      NSMutableArray<NSMutableArray<NSValue*>*>* segementPointsArrays =
-          obj.segementPointsArrays;
-
-      //找到这一段上的点s
-      NSMutableArray<NSValue*>* points = segementPointsArrays[xIdx];
-
-      /// Mutiline optimize
-      /// 找到最扩展最近的点
-      isContain = [XPointDetect
-           point:point
-          inArea:[XPointDetect expandRectArea:points expandLength:20 * expandIdx]];
-
-      if (isContain == YES) {
-        NSUInteger shapeLayerIndex = idx;
-        // 点击的是高亮的Line
-        if (self.coverLayer.selectStatusNumber.boolValue == YES) {
-          // remove pre layer and label
-          [self removePreHiglightDraw];
-          self.coverLayer.selectStatusNumber = [NSNumber numberWithBool:NO];
-        }
-        // 点击的是非高亮的Line
-        else {
-            /// 逻辑存在缺陷，coverlayer 的 label没有干掉
-          // remove pre layer and label
-          [self removePreHiglightDraw];
-          self.coverLayer = [self
-              coverShapeLayerWithPath:self.shapeLayerArray[shapeLayerIndex].path
-                                color:[UIColor tomatoColor]];
-          self.coverLayer.selectStatusNumber = [NSNumber numberWithBool:YES];
-          [self.layer addSublayer:self.coverLayer];
-          [self.numberLabelDecoration drawWithPoints:self.pointsArrays[idx] TextNumbers:self.dataItemArray[idx].numberArray isEnableAnimation:self.configuration.isEnableNumberAnimation];
-        }
-        *stop = YES;
-      }
-
-      if (isContain) {
-        *stop = YES;
-      }
-    }];
-    if (isContain) {
-      return;
-    }
-  }
+    CGPoint point = [[touches anyObject] locationInView:self];
+    self.pointsForHightlight = [self findNearestPointsForPoint:point];
+    [self setNeedsDisplay];
 }
+
+- (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self touchesBegan:touches withEvent:event];
+}
+
+- (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    self.pointsForHightlight = @[];
+    [self setNeedsDisplay];
+}
+
+- (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    [self touchesEnded:touches withEvent:event];
+}
+
+#pragma mark - Helpers
+
+- (NSArray <NSValue *> *)findNearestPointsForPoint:(CGPoint)point {
+    NSMutableArray *results = [NSMutableArray array];
+    
+    for (NSMutableArray <NSValue *> *points in self.pointsArrays) {
+        CGFloat distance = CGFLOAT_MAX;
+        NSInteger index = NSNotFound;
+        
+        for (NSValue *value in points) {
+            CGPoint aPoint = value.CGPointValue;
+            if (fabs(aPoint.x - point.x) < distance) {
+                index = [points indexOfObject:value];
+                distance = fabs(aPoint.x - point.x);
+            }
+        }
+        
+        NSInteger itemIndex = [self.pointsArrays indexOfObject:points];
+        XLineChartItem *item = self.dataItemArray[itemIndex];
+        NSNumber *valueForTest = item.numberArray[index];
+        
+        if ([self.delegate canHighlightPointWithValue:[valueForTest floatValue] forLineAtIndex:itemIndex]) {
+            [results addObject:points[index]];
+        }
+    }
+    
+    return results;
+}
+
+#pragma mark - Configuration
 
 - (XNormalLineChartConfiguration *)configuration {
   if (_configuration == nil) {

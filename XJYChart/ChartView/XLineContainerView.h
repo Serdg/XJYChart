@@ -10,6 +10,7 @@
 #import "XLineChartItem.h"
 #import "XEnumHeader.h"
 #import "XNormalLineChartConfiguration.h"
+#import "XLineChartDelegate.h"
 
 @interface XLineContainerView : UIView
 
@@ -35,5 +36,7 @@
  图表的其他配置
  */
 @property(nonatomic, strong) XNormalLineChartConfiguration* configuration;
+
+@property (nonatomic, weak) id <XLineChartDelegate> delegate;
 
 @end

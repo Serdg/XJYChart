@@ -8,6 +8,11 @@
 
 #import "LineChartCell.h"
 #import <XJYChart/XJYChart.h>
+
+@interface LineChartCell() <XLineChartDelegate>
+
+@end
+
 @implementation LineChartCell
 
 - (void)awakeFromNib {
@@ -58,7 +63,7 @@
     XNormalLineChartConfiguration* configuration =
         [[XNormalLineChartConfiguration alloc] init];
     configuration.lineMode = CurveLine;
-    configuration.isScrollable = YES;    
+    configuration.isScrollable = NO;    
 
     XLineChart* lineChart =
         [[XLineChart alloc] initWithFrame:CGRectMake(0, 0, 375, 200)
@@ -72,7 +77,16 @@
                        chartConfiguration:configuration];
     [self.contentView addSubview:lineChart];
     self.selectionStyle = UITableViewCellSelectionStyleNone;
+      lineChart.delegate = self;
   }
   return self;
 }
+
+#pragma mark - XLineChartDelegate
+
+-(BOOL)canHighlightPointWithValue:(CGFloat)value forLineAtIndex:(NSInteger)index {
+    NSLog(@"HIGSV: %@ FOR LINE AT: %@", @(value), @(index));
+    return YES;
+}
+
 @end

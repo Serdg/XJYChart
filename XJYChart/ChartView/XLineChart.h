@@ -11,6 +11,7 @@
 #import "XEnumHeader.h"
 #import "XLineChartItem.h"
 #import "XLineChartConfiguration.h"
+#import "XLineChartDelegate.h"
 
 @interface XLineChart : UIView
 
@@ -20,6 +21,8 @@
 @property(nonatomic, assign) BOOL isAllowGesture;
 
 @property(nonatomic, strong) XLineChartConfiguration* configuration;
+
+@property (nonatomic, weak) id <XLineChartDelegate> delegate;
 
 /**
  Line Graph Mode

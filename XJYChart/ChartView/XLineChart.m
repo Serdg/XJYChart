@@ -199,6 +199,14 @@
   return _configuration;
 }
 
+#pragma mark - Mutators
 
+- (void)setDelegate:(id<XLineChartDelegate>)delegate {
+    self.lineChartView.chartViewDelegate = delegate;
+}
+
+- (id <XLineChartDelegate>)delegate {
+    return self.lineChartView.chartViewDelegate;
+}
 
 @end

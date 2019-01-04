@@ -10,6 +10,8 @@
 #import "XLineChartItem.h"
 #import "XEnumHeader.h"
 #import "XNormalLineChartConfiguration.h"
+#import "XLineChartDelegate.h"
+
 @interface XLineChartView : UIScrollView
 /**
  初始化方法
@@ -58,5 +60,7 @@
  */
 @property(nonatomic, assign) XLineGraphMode lineGraphMode;
 @property(nonatomic, strong) UIColor* chartBackgroundColor;
+
+@property (nonatomic, weak) id <XLineChartDelegate> chartViewDelegate;
 
 @end

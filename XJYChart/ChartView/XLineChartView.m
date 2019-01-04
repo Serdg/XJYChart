@@ -146,8 +146,15 @@ NSString* KVOKeyLineGraphMode = @"lineMode";
   return _stackAreaLineContainerView;
 }
 
-#pragma mark - Set
+#pragma mark - Mutators
 
+- (void)setChartViewDelegate:(id<XLineChartDelegate>)delegate {
+    self.lineContainerView.delegate = delegate;
+}
+
+- (id <XLineChartDelegate>)chartViewDelegate {
+    return self.lineContainerView.delegate;
+}
 
 @end
 
