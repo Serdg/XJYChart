@@ -132,7 +132,7 @@ CGFloat touchLineWidth = 20;
 
 - (void)strokeGridInContext:(CGContextRef)context {
     NSInteger horizontalLinesCount = 8;
-    CGFloat verticalLinesSpacing = 30;
+    CGFloat verticalLinesSpacing = [UIScreen mainScreen].bounds.size.width / 8.f;
     NSInteger verticalLinesCount = self.frame.size.width / verticalLinesSpacing;
     
     CGContextSetStrokeColorWithColor(context, self.configuration.auxiliaryDashLineColor.CGColor);
@@ -149,7 +149,7 @@ CGFloat touchLineWidth = 20;
     }
     
     CGFloat xPos = 0.f;
-    for (int i = 0; i < verticalLinesCount; i++) {
+    for (int i = 0; i < verticalLinesCount + 2; i++) {
         CGContextMoveToPoint(context, xPos, 0);
         CGContextAddLineToPoint(context, xPos, self.frame.size.height);
         CGContextStrokePath(context);
