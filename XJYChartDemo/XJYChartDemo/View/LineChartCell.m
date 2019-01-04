@@ -62,8 +62,10 @@
 
     XNormalLineChartConfiguration* configuration =
         [[XNormalLineChartConfiguration alloc] init];
-    configuration.lineMode = CurveLine;
-    configuration.isScrollable = NO;    
+    configuration.lineMode = Straight;
+    configuration.isScrollable = NO;
+      configuration.isShowPoint = NO;
+      configuration.indicatorLineColor = [UIColor lightGrayColor];
 
     XLineChart* lineChart =
         [[XLineChart alloc] initWithFrame:CGRectMake(0, 0, 375, 200)

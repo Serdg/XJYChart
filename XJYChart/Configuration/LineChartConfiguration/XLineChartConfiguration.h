@@ -28,6 +28,8 @@
 /// defalut is [UIColor black75PercentColor]
 @property(nonatomic, strong) UIColor* auxiliaryDashLineColor;
 
+@property (nonatomic, strong) UIColor *indicatorLineColor;
+
 /// defalut is YES
 @property(nonatomic, assign) BOOL isShowAuxiliaryDashLine;
 
