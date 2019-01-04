@@ -23,6 +23,8 @@
 
 @property (nonatomic, assign) XLineChartOrdinateMode ordinateMode;
 
+@property (nonatomic, assign) XLineChartBackground background;
+
 /// defalut is [UIColor black75PercentColor]
 @property(nonatomic, strong) UIColor* auxiliaryDashLineColor;
 

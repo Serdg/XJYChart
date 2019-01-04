@@ -31,7 +31,7 @@
     for (int j = 0; j < 2; j++) {
       NSMutableArray* numberArray = [NSMutableArray new];
 
-      for (int i = 0; i < 5; i++) {
+      for (int i = 0; i < 10; i++) {
         int num = [[XRandomNumerHelper shareRandomNumberHelper]
                       randomNumberSmallThan:14] *
                   [[XRandomNumerHelper shareRandomNumberHelper]
@@ -58,6 +58,7 @@
     XNormalLineChartConfiguration* configuration =
         [[XNormalLineChartConfiguration alloc] init];
     configuration.lineMode = CurveLine;
+    configuration.isScrollable = YES;    
 
     XLineChart* lineChart =
         [[XLineChart alloc] initWithFrame:CGRectMake(0, 0, 375, 200)

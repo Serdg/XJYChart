@@ -70,7 +70,13 @@ CGFloat touchLineWidth = 20;
   [super drawRect:rect];
   CGContextRef contextRef = UIGraphicsGetCurrentContext();
   [self cleanPreDrawLayerAndData];
-  [self strokeAuxiliaryLineInContext:contextRef];
+    
+    if (self.configuration.background == XLineChartBackgroundGrid) {
+        [self strokeGridInContext:contextRef];
+    } else {
+        [self strokeAuxiliaryLineInContext:contextRef];
+    }
+    
   [self strokeLineChart];
   [self strokePointInContext];
   [self strokeNumberLabels];
@@ -122,6 +128,38 @@ CGFloat touchLineWidth = 20;
     arrow.lineCapStyle = kCGLineCapRound;
     [arrow stroke];
   }
+}
+
+- (void)strokeGridInContext:(CGContextRef)context {
+    NSInteger horizontalLinesCount = 8;
+    CGFloat verticalLinesSpacing = 30;
+    NSInteger verticalLinesCount = self.frame.size.width / verticalLinesSpacing;
+    
+    CGContextSetStrokeColorWithColor(context, self.configuration.auxiliaryDashLineColor.CGColor);
+    CGContextSaveGState(context);
+    CGContextSetLineWidth(context, 0.2);
+    
+    for (int i = 0; i < horizontalLinesCount; i++) {
+        CGContextMoveToPoint(
+                             context, 0, self.frame.size.height - (self.frame.size.height) / horizontalLinesCount * i);
+        CGContextAddLineToPoint(
+                                context, self.frame.size.width,
+                                self.frame.size.height - ((self.frame.size.height) / horizontalLinesCount) * i);
+        CGContextStrokePath(context);
+    }
+    
+    CGFloat xPos = 0.f;
+    for (int i = 0; i < verticalLinesCount; i++) {
+        CGContextMoveToPoint(context, xPos, 0);
+        CGContextAddLineToPoint(context, xPos, self.frame.size.height);
+        CGContextStrokePath(context);
+        
+        xPos = verticalLinesSpacing * (CGFloat) i;
+    }
+    
+    CGContextRestoreGState(context);
+    CGContextSaveGState(context);
+    CGContextSetStrokeColorWithColor(context, self.configuration.auxiliaryDashLineColor.CGColor);
 }
 
 - (void)cleanPreDrawLayerAndData {

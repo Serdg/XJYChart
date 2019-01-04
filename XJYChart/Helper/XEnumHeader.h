@@ -26,4 +26,9 @@ typedef NS_ENUM(NSInteger, XLineChartOrdinateMode) {
     XLineChartOrdinateModeDouble
 };
 
+typedef NS_ENUM(NSInteger, XLineChartBackground) {
+    XLineChartBackgroundGrid,
+    XLineChartBackgroundAuxiliaryLines
+};
+
 #endif /* XEnumHeader_h */
