@@ -19,6 +19,7 @@
     self.isEnableNumberAnimation = YES;
     self.isShowOrdinate = YES;
     self.isShowXAbscissa = YES;
+      self.lineWidth = 1.f;
   }
   return self;
 }

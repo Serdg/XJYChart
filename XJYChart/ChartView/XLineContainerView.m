@@ -356,7 +356,7 @@ CGFloat touchLineWidth = 20;
   CAShapeLayer* chartLine = [CAShapeLayer layer];
   chartLine.lineCap = kCALineCapRound;
   chartLine.lineJoin = kCALineJoinRound;
-  chartLine.lineWidth = LineWidth;
+  chartLine.lineWidth = self.configuration.lineWidth;
 
   for (int i = 0; i < pointsValueArray.count - 1; i++) {
     CGPoint point1 = pointsValueArray[i].CGPointValue;
@@ -519,7 +519,6 @@ CGFloat touchLineWidth = 20;
         }
         
         NSInteger itemIndex = [self.pointsArrays indexOfObject:points];
-        XLineChartItem *item = self.dataItemArray[itemIndex];
         
         if ([self.delegate canHighlightPointAtIndex:index forLineAtIndex:itemIndex]) {
             [results addObject:points[index]];            
