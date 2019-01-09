@@ -520,11 +520,12 @@ CGFloat touchLineWidth = 20;
         
         NSInteger itemIndex = [self.pointsArrays indexOfObject:points];
         XLineChartItem *item = self.dataItemArray[itemIndex];
-        NSNumber *valueForTest = item.numberArray[index];
         
-        if ([self.delegate canHighlightPointWithValue:[valueForTest floatValue] forLineAtIndex:itemIndex]) {
-            [results addObject:points[index]];
-            [self.delegate lineChart:self.chart didHighlightPointWithValue:[valueForTest floatValue] forLineAtIndex:itemIndex];
+        if ([self.delegate canHighlightPointAtIndex:index forLineAtIndex:itemIndex]) {
+            [results addObject:points[index]];            
+            if ([self.delegate respondsToSelector:@selector(lineChart:didHighlightPointAtIndex:forLineAtIndex:)]) {
+                [self.delegate lineChart:self.chart didHighlightPointAtIndex:index forLineAtIndex:itemIndex];
+            }
         } else {
             [results addObject:[NSValue valueWithCGPoint:CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN)]];
         }

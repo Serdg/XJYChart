@@ -13,8 +13,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol XLineChartDelegate <NSObject>
-- (BOOL)canHighlightPointWithValue:(CGFloat)value forLineAtIndex:(NSInteger) index;
-- (void)lineChart:(XLineChart *)chart didHighlightPointWithValue:(CGFloat)value forLineAtIndex:(NSInteger)index;
+- (BOOL)canHighlightPointAtIndex:(NSInteger)pointIndex forLineAtIndex:(NSInteger)lineIndex;
+@optional
+- (void)lineChart:(XLineChart *)chart didHighlightPointAtIndex:(NSInteger)pointIndex forLineAtIndex:(NSInteger)lineIndex;
 @end
 
 NS_ASSUME_NONNULL_END
