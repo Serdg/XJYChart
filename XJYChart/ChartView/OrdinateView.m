@@ -87,7 +87,7 @@
             stringWithFormat:@"%.0f", (idx) * (self.top - self.bottom) / (self.labelArray.count - 1) +
                                           self.bottom];
         obj.textAlignment = NSTextAlignmentCenter;
-        obj.backgroundColor = [UIColor whiteColor];
+        obj.backgroundColor = [UIColor clearColor];
 
         [self addSubview:obj];
       }];
