@@ -25,7 +25,7 @@
                 configuration:(XBaseChartConfiguration*)configuration
 {
   if (self = [self initWithFrame:frame]) {
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor clearColor];
     self.dataDescribeArray = [NSMutableArray new];
     self.labelArray = [NSMutableArray new];
     self.dataItemArray = dataItemArray;
