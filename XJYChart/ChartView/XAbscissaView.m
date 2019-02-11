@@ -60,10 +60,11 @@
                                  labelWidth - 2 * intervalWidth,
                                  self.frame.size.height)];
     label.text = self.dataDescribeArray[i];
-    label.textColor = [UIColor black50PercentColor];
     label.adjustsFontSizeToFitWidth = YES;
     label.numberOfLines = 0;
     label.textAlignment = NSTextAlignmentCenter;
+    label.backgroundColor = [UIColor clearColor];
+      label.textColor = self.configuration.titlesColor;
 
 //    float largestFontSize = 12;
 //    while ([label.text sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:largestFontSize]}].width > label.frame.size.width)

@@ -18,6 +18,7 @@
 @property(nonatomic, assign) BOOL isShowOrdinate;
 @property(nonatomic, assign) BOOL isShowXAbscissa;
 @property (nonatomic, assign) CGFloat lineWidth;
+@property (nonatomic, strong) UIColor *titlesColor;
 
 @end
 

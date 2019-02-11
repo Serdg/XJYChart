@@ -82,7 +82,7 @@
 //        largestFontSize--;
 
         obj.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:largestFontSize];
-        obj.textColor = [UIColor black50PercentColor];
+        obj.textColor = self.configuration.titlesColor;
         obj.text = [NSString
             stringWithFormat:@"%.0f", (idx) * (self.top - self.bottom) / (self.labelArray.count - 1) +
                                           self.bottom];

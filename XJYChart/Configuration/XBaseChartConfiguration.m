@@ -20,6 +20,7 @@
     self.isShowOrdinate = YES;
     self.isShowXAbscissa = YES;
       self.lineWidth = 1.f;
+      self.titlesColor = [UIColor blackColor];
   }
   return self;
 }
