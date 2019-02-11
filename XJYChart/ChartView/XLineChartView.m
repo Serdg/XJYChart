@@ -56,11 +56,7 @@ NSString* KVOKeyLineGraphMode = @"lineMode";
     self.contanierView =
         [self getLineChartContainerViewWithGraphMode:self.lineGraphMode];
     [self addSubview:self.contanierView];
-
-    if ([self.contanierView isKindOfClass:[XAreaLineContainerView class]]) {
-      self.bounces = NO;
-      self.backgroundColor = XJYBlue;
-    }
+      self.backgroundColor = configuration.chartBackgroundColor;    
   }
   return self;
 }
