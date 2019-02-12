@@ -20,6 +20,7 @@
     self.isEnableNumberLabel = NO;
     self.ordinateMode = XLineChartOrdinateModeSingle;
       self.auxiliaryDashLineWidth = 0.2f;
+      self.indicatorLineWidth = 1.f;
   }
   return self;
 }

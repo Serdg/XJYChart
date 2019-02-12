@@ -196,7 +196,7 @@ CGFloat touchLineWidth = 20;
     
     CGContextSetStrokeColorWithColor(contextRef, indicatorColor.CGColor);
     CGContextSaveGState(contextRef);
-    CGContextSetLineWidth(contextRef, 1.f);
+    CGContextSetLineWidth(contextRef, self.configuration.indicatorLineWidth);
     
     CGContextMoveToPoint(contextRef, highlightablePoint.x, 0.f);
     CGContextAddLineToPoint(contextRef, highlightablePoint.x, self.frame.size.height);

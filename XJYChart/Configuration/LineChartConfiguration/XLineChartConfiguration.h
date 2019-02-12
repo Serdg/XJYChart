@@ -30,6 +30,7 @@
 @property (nonatomic, assign) CGFloat auxiliaryDashLineWidth;
 
 @property (nonatomic, strong) UIColor *indicatorLineColor;
+@property (nonatomic, assign) CGFloat indicatorLineWidth;
 
 /// defalut is YES
 @property(nonatomic, assign) BOOL isShowAuxiliaryDashLine;
