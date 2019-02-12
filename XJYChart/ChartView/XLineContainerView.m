@@ -492,6 +492,7 @@ CGFloat touchLineWidth = 20;
 
 - (void)touchesBegan:(NSSet<UITouch*>*)touches withEvent:(UIEvent*)event {
     CGPoint point = [[touches anyObject] locationInView:self];
+    [self sendTouchWithPoint:point];
     self.pointsForHightlight = [self findNearestPointsForPoint:point];
     [self setNeedsDisplay];
 }
@@ -501,6 +502,9 @@ CGFloat touchLineWidth = 20;
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    if ([self.delegate respondsToSelector:@selector(lineChartDidFinishTouches:)]) {
+        [self.delegate lineChartDidFinishTouches:self];
+    }
     self.pointsForHightlight = @[];
     [self setNeedsDisplay];
 }
@@ -539,6 +543,12 @@ CGFloat touchLineWidth = 20;
     }
     
     return results;
+}
+
+- (void)sendTouchWithPoint:(CGPoint)point {
+    if ([self.delegate respondsToSelector:@selector(lineChart:didMoveTouchWithPoint:)]) {
+        [self.delegate lineChart:self didMoveTouchWithPoint:point];
+    }
 }
 
 #pragma mark - Configuration

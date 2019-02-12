@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)canHighlightPointAtIndex:(NSInteger)pointIndex forLineAtIndex:(NSInteger)lineIndex;
 @optional
 - (void)lineChart:(XLineChart *)chart didHighlightPointAtIndex:(NSInteger)pointIndex forLineAtIndex:(NSInteger)lineIndex;
+- (void)lineChart:(XLineChart *)chart didMoveTouchWithPoint:(CGPoint)point;
+- (void)lineChartDidFinishTouches:(XLineChart *)chart;
 @end
 
 NS_ASSUME_NONNULL_END
