@@ -27,6 +27,7 @@
 
 /// defalut is [UIColor black75PercentColor]
 @property(nonatomic, strong) UIColor* auxiliaryDashLineColor;
+@property (nonatomic, assign) CGFloat auxiliaryDashLineWidth;
 
 @property (nonatomic, strong) UIColor *indicatorLineColor;
 

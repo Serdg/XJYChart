@@ -91,7 +91,7 @@ CGFloat touchLineWidth = 20;
     CGContextSaveGState(context);
     CGFloat lengths[2] = {5.0, 5.0};
     CGContextSetLineDash(context, 0, lengths, 2);
-    CGContextSetLineWidth(context, 0.2);
+    CGContextSetLineWidth(context, self.configuration.auxiliaryDashLineWidth);
     for (int i = 0; i < 11; i++) {
       CGContextMoveToPoint(
                            context, 5, self.frame.size.height - (self.frame.size.height) / 11 * i);
@@ -139,7 +139,11 @@ CGFloat touchLineWidth = 20;
     
     CGContextSetStrokeColorWithColor(context, self.configuration.auxiliaryDashLineColor.CGColor);
     CGContextSaveGState(context);
-    CGContextSetLineWidth(context, 0.2);
+    CGContextSetLineWidth(context, self.configuration.auxiliaryDashLineWidth);
+    
+    CGContextMoveToPoint(context, 0.f, 0.f);
+    CGContextAddLineToPoint(context, self.frame.size.width, 0.f);
+    CGContextStrokePath(context);
     
     for (int i = 0; i < horizontalLinesCount; i++) {
         CGContextMoveToPoint(
@@ -158,6 +162,10 @@ CGFloat touchLineWidth = 20;
         
         xPos = verticalLinesSpacing * (CGFloat) i;
     }
+    
+    CGContextMoveToPoint(context, self.frame.size.width, 0.f);
+    CGContextAddLineToPoint(context, self.frame.size.width, self.frame.size.height);
+    CGContextStrokePath(context);
     
     CGContextRestoreGState(context);
     CGContextSaveGState(context);

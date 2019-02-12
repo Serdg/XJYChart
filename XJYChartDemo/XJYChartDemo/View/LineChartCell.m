@@ -68,6 +68,7 @@
       configuration.isShowPoint = NO;
       configuration.indicatorLineColor = [UIColor lightGrayColor];
       configuration.lineWidth = 2.f;
+      configuration.auxiliaryDashLineColor = [UIColor redColor];
 
     XLineChart* lineChart =
         [[XLineChart alloc] initWithFrame:CGRectMake(0, 0, 375, 200)

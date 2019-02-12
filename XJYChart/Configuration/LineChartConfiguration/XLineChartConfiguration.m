@@ -19,6 +19,7 @@
     self.numberLabelColor = [UIColor black75PercentColor];
     self.isEnableNumberLabel = NO;
     self.ordinateMode = XLineChartOrdinateModeSingle;
+      self.auxiliaryDashLineWidth = 0.2f;
   }
   return self;
 }
