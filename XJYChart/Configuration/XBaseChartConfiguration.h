@@ -19,6 +19,7 @@
 @property(nonatomic, assign) BOOL isShowXAbscissa;
 @property (nonatomic, assign) CGFloat lineWidth;
 @property (nonatomic, strong) UIColor *titlesColor;
+@property (nonatomic, strong) UIFont *titlesFont;
 
 @end
 

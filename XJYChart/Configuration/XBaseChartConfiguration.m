@@ -21,6 +21,7 @@
     self.isShowXAbscissa = YES;
       self.lineWidth = 1.f;
       self.titlesColor = [UIColor blackColor];
+      self.titlesFont = [UIFont systemFontOfSize:12.f];
   }
   return self;
 }

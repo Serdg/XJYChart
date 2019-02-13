@@ -93,4 +93,10 @@
     return YES;
 }
 
+-(void)lineChart:(XLineChart *)chart didMoveTouchWithPoint:(CGPoint)point {
+    UIView *view  = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, 50.f, 50.f)];
+    view.backgroundColor = [UIColor redColor];
+    [self.contentView addSubview:view];
+}
+
 @end

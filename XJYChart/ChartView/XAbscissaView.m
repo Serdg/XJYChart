@@ -72,14 +72,14 @@
 //      largestFontSize--;
 //    }
 //    label.verticalAlignment = XVerticalAlignmentMiddle;
-    label.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:12];
-    if (label.frame.size.width < 20) {
-      label.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:6];
-      label.verticalAlignment = XVerticalAlignmentTop;
-    } else  if (label.frame.size.width < 10) {
-      label.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:3];
-      label.verticalAlignment = XVerticalAlignmentTop;
-    }
+      label.font = self.configuration.titlesFont;
+//    if (label.frame.size.width < 20) {
+//      label.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:6];
+//      label.verticalAlignment = XVerticalAlignmentTop;
+//    } else  if (label.frame.size.width < 10) {
+//      label.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:3];
+//      label.verticalAlignment = XVerticalAlignmentTop;
+//    }
     [self addSubview:label];
   }
 }

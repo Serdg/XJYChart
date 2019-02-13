@@ -81,7 +81,7 @@
 //        }
 //        largestFontSize--;
 
-        obj.font = [UIFont fontWithName:@"AppleSDGothicNeo-Bold" size:largestFontSize];
+          obj.font = self.configuration.titlesFont;
         obj.textColor = self.configuration.titlesColor;
         obj.text = [NSString
             stringWithFormat:@"%.0f", (idx) * (self.top - self.bottom) / (self.labelArray.count - 1) +
