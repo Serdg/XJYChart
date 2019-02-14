@@ -518,7 +518,7 @@ CGFloat touchLineWidth = 20;
     NSMutableArray *results = [NSMutableArray array];
     
     NSMutableDictionary *info = [NSMutableDictionary dictionary];
-    NSMutableDictionary *pointsInfo = [NSMutableDictionary dictionary];
+    NSMutableArray *pointsInfo = [NSMutableArray array];
     info[kLineChartTouchInfoKey] = [NSValue valueWithCGPoint:point];
     info[kLineChartPointsInfoKey] = pointsInfo;
     
@@ -537,16 +537,8 @@ CGFloat touchLineWidth = 20;
         NSInteger itemIndex = [self.pointsArrays indexOfObject:points];
         
         if ([self.delegate canHighlightPointAtIndex:index forLineAtIndex:itemIndex]) {
-            [results addObject:points[index]];            
-            
-            NSMutableArray *array = pointsInfo[@(itemIndex)];
-            if (!array) {
-                array = [NSMutableArray array];
-                pointsInfo[@(itemIndex)] = array;
-            }
-            
-            [array addObject:@(index)];
-            
+            [results addObject:points[index]];
+            [pointsInfo addObject:@[@(itemIndex), @(index)]];
         } else {
             [results addObject:[NSValue valueWithCGPoint:CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN)]];
         }

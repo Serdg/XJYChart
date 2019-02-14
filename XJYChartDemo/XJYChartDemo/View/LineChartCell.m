@@ -101,7 +101,7 @@
 
 -(void)lineChart:(XLineChart *)chart didSelectChartsPointsWithInfo:(NSDictionary <NSNumber *, NSArray <NSNumber *> *> *)info {
     CGPoint touch = [((NSValue *) info[kLineChartTouchInfoKey]) CGPointValue];
-    NSDictionary *points = info[kLineChartPointsInfoKey];
+    NSArray *points = info[kLineChartPointsInfoKey];
     
     NSLog(@"TOUCH: %@", NSStringFromCGPoint(touch));
     NSLog(@" ");
