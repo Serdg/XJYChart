@@ -20,6 +20,7 @@
 
 NSString *const kLineChartPointsInfoKey = @"kLineChartPointsInfoKey";
 NSString *const kLineChartTouchInfoKey = @"kLineChartTouchInfoKey";
+NSString *const kLineChartSourceViewInfoKey = @"kLineChartSourceViewInfoKey";
 
 @interface XLineChart ()
 

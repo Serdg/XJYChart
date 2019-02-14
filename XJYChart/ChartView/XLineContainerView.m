@@ -16,6 +16,7 @@
 #import "CALayer+XLayerSelectHelper.h"
 #import "CAShapeLayer+XLayerHelper.h"
 #import "XJYNumberLabelDecoration.h"
+#import "XLineChart.h"
 #pragma mark - Macro
 
 #define LineWidth 4.0
@@ -517,10 +518,14 @@ CGFloat touchLineWidth = 20;
 - (NSArray <NSValue *> *)findNearestPointsForPoint:(CGPoint)point {
     NSMutableArray *results = [NSMutableArray array];
     
+    CGPoint convertedPoint = [self convertPoint:point toView:self.superview];
+    convertedPoint = [self.superview convertPoint:convertedPoint toView:self.chart];
+    
     NSMutableDictionary *info = [NSMutableDictionary dictionary];
     NSMutableArray *pointsInfo = [NSMutableArray array];
-    info[kLineChartTouchInfoKey] = [NSValue valueWithCGPoint:point];
+    info[kLineChartTouchInfoKey] = [NSValue valueWithCGPoint:convertedPoint];
     info[kLineChartPointsInfoKey] = pointsInfo;
+    info[kLineChartSourceViewInfoKey] = self.chart;
     
     for (NSMutableArray <NSValue *> *points in self.pointsArrays) {
         CGFloat distance = CGFLOAT_MAX;

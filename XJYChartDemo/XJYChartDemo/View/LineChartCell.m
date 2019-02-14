@@ -106,6 +106,8 @@
     NSLog(@"TOUCH: %@", NSStringFromCGPoint(touch));
     NSLog(@" ");
     NSLog(@"POINTS: %@", points);
+    NSLog(@"  ");
+    NSLog(@"SV: %@", info[kLineChartSourceViewInfoKey]);
 }
 
 @end

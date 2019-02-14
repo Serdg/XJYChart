@@ -12,6 +12,7 @@
 
 extern NSString *const kLineChartPointsInfoKey;
 extern NSString *const kLineChartTouchInfoKey;
+extern NSString *const kLineChartSourceViewInfoKey;
 
 NS_ASSUME_NONNULL_BEGIN
 
