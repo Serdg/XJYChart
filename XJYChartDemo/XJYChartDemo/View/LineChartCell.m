@@ -90,7 +90,7 @@
 #pragma mark - XLineChartDelegate
 
 - (BOOL)canHighlightPointAtIndex:(NSInteger)pointIndex forLineAtIndex:(NSInteger)lineIndex {
-    return pointIndex != 4 && pointIndex != 5 ;
+//    return pointIndex != 4 && pointIndex != 5 ;
     
     if (lineIndex == 0) {
         return pointIndex != 4 && pointIndex != 5 ;
