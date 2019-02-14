@@ -90,7 +90,7 @@
 #pragma mark - XLineChartDelegate
 
 - (BOOL)canHighlightPointAtIndex:(NSInteger)pointIndex forLineAtIndex:(NSInteger)lineIndex {
-    return YES;
+    return pointIndex != 4 && pointIndex != 5;
 }
 
 -(void)lineChart:(XLineChart *)chart didMoveTouchWithPoint:(CGPoint)point {
@@ -99,15 +99,10 @@
     [self.contentView addSubview:view];
 }
 
--(void)lineChart:(XLineChart *)chart didSelectChartsPointsWithInfo:(NSDictionary <NSNumber *, NSArray <NSNumber *> *> *)info {
+-(void)lineChart:(XLineChart *)chart didSelectChartsPointsWithInfo:(NSDictionary *)info {
     CGPoint touch = [((NSValue *) info[kLineChartTouchInfoKey]) CGPointValue];
-    NSArray *points = info[kLineChartPointsInfoKey];
     
     NSLog(@"TOUCH: %@", NSStringFromCGPoint(touch));
-    NSLog(@" ");
-    NSLog(@"POINTS: %@", points);
-    NSLog(@"  ");
-    NSLog(@"SV: %@", info[kLineChartSourceViewInfoKey]);
 }
 
 @end
