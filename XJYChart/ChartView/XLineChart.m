@@ -18,6 +18,9 @@
 #define OrdinateWidth 30
 #define LineChartViewTopInterval 10
 
+NSString *const kLineChartPointsInfoKey = @"kLineChartPointsInfoKey";
+NSString *const kLineChartTouchInfoKey = @"kLineChartTouchInfoKey";
+
 @interface XLineChart ()
 
 @property(nonatomic, strong) NSNumber* top;

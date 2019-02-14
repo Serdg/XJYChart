@@ -492,7 +492,6 @@ CGFloat touchLineWidth = 20;
 
 - (void)touchesBegan:(NSSet<UITouch*>*)touches withEvent:(UIEvent*)event {
     CGPoint point = [[touches anyObject] locationInView:self];
-    [self sendTouchWithPoint:point];
     self.pointsForHightlight = [self findNearestPointsForPoint:point];
     [self setNeedsDisplay];
 }
@@ -503,7 +502,7 @@ CGFloat touchLineWidth = 20;
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
     if ([self.delegate respondsToSelector:@selector(lineChartDidFinishTouches:)]) {
-        [self.delegate lineChartDidFinishTouches:self];
+        [self.delegate lineChartDidFinishTouches:self.chart];
     }
     self.pointsForHightlight = @[];
     [self setNeedsDisplay];
@@ -517,6 +516,11 @@ CGFloat touchLineWidth = 20;
 
 - (NSArray <NSValue *> *)findNearestPointsForPoint:(CGPoint)point {
     NSMutableArray *results = [NSMutableArray array];
+    
+    NSMutableDictionary *info = [NSMutableDictionary dictionary];
+    NSMutableDictionary *pointsInfo = [NSMutableDictionary dictionary];
+    info[kLineChartTouchInfoKey] = [NSValue valueWithCGPoint:point];
+    info[kLineChartPointsInfoKey] = pointsInfo;
     
     for (NSMutableArray <NSValue *> *points in self.pointsArrays) {
         CGFloat distance = CGFLOAT_MAX;
@@ -534,21 +538,25 @@ CGFloat touchLineWidth = 20;
         
         if ([self.delegate canHighlightPointAtIndex:index forLineAtIndex:itemIndex]) {
             [results addObject:points[index]];            
-            if ([self.delegate respondsToSelector:@selector(lineChart:didHighlightPointAtIndex:forLineAtIndex:)]) {
-                [self.delegate lineChart:self.chart didHighlightPointAtIndex:index forLineAtIndex:itemIndex];
+            
+            NSMutableArray *array = pointsInfo[@(itemIndex)];
+            if (!array) {
+                array = [NSMutableArray array];
+                pointsInfo[@(itemIndex)] = array;
             }
+            
+            [array addObject:@(index)];
+            
         } else {
             [results addObject:[NSValue valueWithCGPoint:CGPointMake(CGFLOAT_MIN, CGFLOAT_MIN)]];
         }
     }
     
-    return results;
-}
-
-- (void)sendTouchWithPoint:(CGPoint)point {
-    if ([self.delegate respondsToSelector:@selector(lineChart:didMoveTouchWithPoint:)]) {
-        [self.delegate lineChart:self didMoveTouchWithPoint:point];
+    if ([self.delegate respondsToSelector:@selector(lineChart:didSelectChartsPointsWithInfo:)]) {
+        [self.delegate lineChart:self.chart didSelectChartsPointsWithInfo:info];
     }
+    
+    return results;
 }
 
 #pragma mark - Configuration

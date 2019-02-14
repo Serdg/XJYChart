@@ -99,4 +99,13 @@
     [self.contentView addSubview:view];
 }
 
+-(void)lineChart:(XLineChart *)chart didSelectChartsPointsWithInfo:(NSDictionary <NSNumber *, NSArray <NSNumber *> *> *)info {
+    CGPoint touch = [((NSValue *) info[kLineChartTouchInfoKey]) CGPointValue];
+    NSDictionary *points = info[kLineChartPointsInfoKey];
+    
+    NSLog(@"TOUCH: %@", NSStringFromCGPoint(touch));
+    NSLog(@" ");
+    NSLog(@"POINTS: %@", points);
+}
+
 @end

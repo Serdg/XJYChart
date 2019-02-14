@@ -10,13 +10,15 @@
 
 @class XLineChart;
 
+extern NSString *const kLineChartPointsInfoKey;
+extern NSString *const kLineChartTouchInfoKey;
+
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol XLineChartDelegate <NSObject>
 - (BOOL)canHighlightPointAtIndex:(NSInteger)pointIndex forLineAtIndex:(NSInteger)lineIndex;
 @optional
-- (void)lineChart:(XLineChart *)chart didHighlightPointAtIndex:(NSInteger)pointIndex forLineAtIndex:(NSInteger)lineIndex;
-- (void)lineChart:(XLineChart *)chart didMoveTouchWithPoint:(CGPoint)point;
+- (void)lineChart:(XLineChart *)chart didSelectChartsPointsWithInfo:(NSDictionary *)info;
 - (void)lineChartDidFinishTouches:(XLineChart *)chart;
 @end
 
