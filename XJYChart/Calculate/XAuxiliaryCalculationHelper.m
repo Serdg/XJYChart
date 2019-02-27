@@ -22,9 +22,6 @@
 - (CGFloat)calculateTheProportionOfHeightByTop:(CGFloat)top
                                         bottom:(CGFloat)bottom
                                         height:(CGFloat)height {
-  NSCAssert(
-      (top >= height) && (height >= bottom),
-      @"The data must meet the following conditions “bottom < height < top “");
   return fabs((height - bottom) / (top - bottom));
 }
 
@@ -32,9 +29,6 @@
 - (CGFloat)calculateThePositiveNegativeProportionOfHeightByTop:(CGFloat)top
                                                         bottom:(CGFloat)bottom
                                                         height:(CGFloat)height {
-  NSCAssert(
-      (top >= height) && (height >= bottom),
-      @"The data must meet the following conditions “bottom < height < top “");
   if (height >= 0) {
     return fabs(height / top);
   } else {
