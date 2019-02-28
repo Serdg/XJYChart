@@ -15,7 +15,7 @@
 #import "XAreaLineChartConfiguration.h"
 #import "XStackAreaLineChartConfiguration.h"
 
-#define OrdinateWidth 35
+#define OrdinateWidth 30
 #define LineChartViewTopInterval 10
 
 NSString *const kLineChartPointsInfoKey = @"kLineChartPointsInfoKey";
