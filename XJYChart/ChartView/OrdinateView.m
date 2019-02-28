@@ -45,7 +45,7 @@
     self.bottom = bottomNumber.floatValue;
     self.labelArray = [NSMutableArray new];
     self.configuration = configuration;
-    for (int i = 0; i < self.configuration.ordinateDenominator + 1; i++) {
+    for (int i = 0; i < self.configuration.ordinateTitles.count; i++) {
       UILabel* label = [[UILabel alloc] init];
       [self.labelArray addObject:label];
     }
@@ -74,18 +74,11 @@
           
         obj.frame = CGRectMake(0, newH, width, 15);
 
-        float largestFontSize = 12;
-//        while ([obj.text sizeWithAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:largestFontSize]}].width > obj.frame.size.width)
-//        {
-//          largestFontSize--;
-//        }
-//        largestFontSize--;
-
           obj.font = self.configuration.titlesFont;
         obj.textColor = self.configuration.titlesColor;
-        obj.text = [NSString
-            stringWithFormat:@"%.0f", (idx) * (self.top - self.bottom) / (self.labelArray.count - 1) +
-                                          self.bottom];
+          if (idx < self.configuration.ordinateTitles.count) {
+              obj.text = self.configuration.ordinateTitles[idx];
+          }
         obj.textAlignment = NSTextAlignmentCenter;
         obj.backgroundColor = [UIColor clearColor];
 

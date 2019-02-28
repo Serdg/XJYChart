@@ -21,5 +21,7 @@
 @property (nonatomic, strong) UIColor *titlesColor;
 @property (nonatomic, strong) UIFont *titlesFont;
 
+@property (nonatomic, strong) NSArray <NSString *> *ordinateTitles;
+
 @end
 
