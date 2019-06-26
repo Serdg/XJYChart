@@ -15,7 +15,6 @@
 #import "XAreaLineChartConfiguration.h"
 #import "XStackAreaLineChartConfiguration.h"
 
-#define OrdinateWidth 30
 #define LineChartViewTopInterval 10
 
 NSString *const kLineChartPointsInfoKey = @"kLineChartPointsInfoKey";
@@ -145,7 +144,7 @@ NSString *const kLineChartSourceViewInfoKey = @"kLineChartSourceViewInfoKey";
 - (OrdinateView*)leftOrdinateView {
   if (!_leftOrdinateView) {
     _leftOrdinateView = [[OrdinateView alloc]
-        initWithFrame:CGRectMake(0, 0, OrdinateWidth, self.frame.size.height)
+        initWithFrame:CGRectMake(0, 0, self.configuration.ordinateViewWidth, self.frame.size.height)
             topNumber:self.top
          bottomNumber:self.bottom
                      configuration:self.configuration];
@@ -154,10 +153,10 @@ NSString *const kLineChartSourceViewInfoKey = @"kLineChartSourceViewInfoKey";
 }
 
 - (OrdinateView *)rightOrdinateView {
-    CGFloat xPos = self.frame.size.width - OrdinateWidth;
+    CGFloat xPos = self.frame.size.width - self.configuration.ordinateViewWidth;
     if (!_rightOrdinateView) {
         _rightOrdinateView = [[OrdinateView alloc]
-            initWithFrame:CGRectMake(xPos, 0, OrdinateWidth, self.frame.size.height)
+            initWithFrame:CGRectMake(xPos, 0, self.configuration.ordinateViewWidth, self.frame.size.height)
                 topNumber:self.top
              bottomNumber:self.bottom
             configuration:self.configuration];
@@ -169,8 +168,8 @@ NSString *const kLineChartSourceViewInfoKey = @"kLineChartSourceViewInfoKey";
     if (!_lineChartView) {
     _lineChartView = [[XLineChartView alloc]
             initWithFrame:CGRectMake(
-                              OrdinateWidth, LineChartViewTopInterval,
-                                     self.frame.size.width - (OrdinateWidth + (self.configuration.ordinateMode == XLineChartOrdinateModeDouble ? OrdinateWidth : 0.f)),
+                              self.configuration.ordinateViewWidth, LineChartViewTopInterval,
+                                     self.frame.size.width - (self.configuration.ordinateViewWidth + (self.configuration.ordinateMode == XLineChartOrdinateModeDouble ? self.configuration.ordinateViewWidth : 0.f)),
                               self.frame.size.height - LineChartViewTopInterval)
             dataItemArray:self.dataItemArray
         dataDescribeArray:self.dataDescribeArray
