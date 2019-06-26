@@ -41,4 +41,7 @@
 
 @property(nonatomic, strong) UIColor *numberLabelColor;
 @property(nonatomic, assign) BOOL isEnableTouchShowNumberLabel;
+
+@property (nonatomic, assign) CGFloat ordinateViewWidth;
+
 @end
